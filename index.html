@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>10.0</title>
+    <link rel = "stylesheet" type = "text/css" href = "style.css" />
+    <script src="script.js"></script>
+  </head>
+
+  <body>
+    <div class="main-section">
+      <div class="main-elements-control">
+        <h1>To-do lists</h1>
+        <div>
+          <input type="text" id='add-task' maxlength="40" placeholder="Введи свою задачу!!!">
+          <button onclick="onClickButton()" class="main-btn">Add</button>
+          <button onclick="onClearButton()" class="main-btn">Clear</button>
+          <button onclick="onDeleteKey()" class="main-btn">Remove</button>
+        </div>
+      </div>
+
+      <div id="content-page"></div>
+      <div id="content-page_yes"></div>
+    </div>
+  </body>
+</html>

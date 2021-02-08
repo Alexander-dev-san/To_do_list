@@ -1,0 +1,109 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  padding: 50px;
+  background: #87CEFF;
+}
+
+.main-elements-control h1{
+  font-size: 60px;
+}
+
+.main-elements-control #add-task {
+  width: 400px;
+  margin-top: 20px;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 18px;
+}
+
+.main-elements-control #add-task:focus {
+  outline: none;
+  border: 2px solid blue;
+  background: linear-gradient(to top, #00ffff 0%, #ffffff 95%);
+  font-weight: 900;
+}
+
+.main-btn {
+  padding: 10px 30px;
+  background: rgba(0,255,255, 0.8);
+  border-radius: 5px;
+  border: 2px solid#00ffff;
+  cursor: pointer;
+  margin-left: 10px;
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.main-btn:hover {
+  box-shadow: inset 0px 0px 10px rgba(0,0,0,0.5);
+}
+
+.main-btn:focus {
+  outline: none;
+}
+
+.main-section {
+  text-align: center;
+}
+
+#content-page{
+  margin-top: 50px;
+}
+
+.task-container {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  width: 900px;
+  margin: 0 auto;
+  margin-top: 30px;
+  padding: 10px 10px;
+  background: #AFEEEE;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5); 
+}
+
+.text-task {
+  font-size: 40px;
+  color: black;
+  margin-left: 8px;
+}
+
+.done-text {
+  color: rgba(0, 0, 0, 0.3);
+  text-decoration: line-through;
+}
+
+.edit {
+  width: 30px;
+  height: 30px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.inputText {
+  width: 400px;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 18px;
+  margin-left: 10px;
+  font-weight: 900;
+}
+
+.inputText:focus {
+  outline: none;
+  border: 2px solid blue;
+  background: linear-gradient(to top, #00ffff 0%, #ffffff 95%);
+}
+
+.checkbox {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
