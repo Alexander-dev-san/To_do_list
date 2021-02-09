@@ -2,19 +2,38 @@ let allTasks = JSON.parse(localStorage.getItem('tasks')) || [];
 let valueInput = '';
 let input = null;
 
-window.onload = function addElement() {
+window.onload = async function addElement() {
   input = document.getElementById('add-task');
   input.addEventListener('change', updateValue);
+  const resp = await fetch('http://localhost:8000/allTasks', {
+  method: 'GET'
+  });
+  let result = await resp.json();
+  console.log(result)
+  allTasks = result.data;
   render();
   
 }
 
-onClickButton = () => {
+onClickButton = async () => {
   allTasks.push({
     text: valueInput,
     isCheck: false
   });
-  localStorage.setItem('tasks', JSON.stringify(allTasks));
+  const resp = await fetch('http://localhost:8000/createTask', {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json;charset=utf-8',
+      'Access-Control-Allow-Origin': '*'
+    },
+    body: JSON.stringify({
+      text: valueInput,
+      isCheck: false
+    })
+  });
+  let result = await resp.json();
+  allTasks = result.data;
+  // localStorage.setItem('tasks', JSON.stringify(allTasks));
   valueInput = '';
   input.value = '';
   render();
@@ -77,20 +96,52 @@ render = () => {
       let inputText = document.getElementById(`inputText${index}`);
       inputText.value = item.text;
       inputText.focus();
-      inputText.addEventListener('focusout', function() {
-        item.text = inputText.value;
-        localStorage.setItem('tasks', JSON.stringify(allTasks));
+      inputText.addEventListener('focusout', async function() {
+        const resp = await fetch('http://localhost:8000/updateTask', {
+          method: 'PATCH',
+          headers: {
+            'Content-type': 'application/json;charset=utf-8',
+            'Access-Control-Allow-Origin': '*'
+          },
+          body: JSON.stringify({
+            id: allTasks[index].id,
+            text: inputText.value,
+            isCheck: allTasks[index].isCheck,
+          })
+        });
+        let result = await resp.json();
+        console.log(result)
+        allTasks = result.data;
+        // item.text = inputText.value;
+        // localStorage.setItem('tasks', JSON.stringify(allTasks));
         render();
       });
       imgEdit.outerHTML = `<img src='img/done.svg' class='edit imgDone'>`;
       const imgDone = document.getElementsByClassName('imgDone')[0];
-      imgDone.onclick = function() {
-        if(inputText){
-          item.text = inputText.value;
-        } else {
-          item.text = '';
-        }
-        localStorage.setItem('tasks', JSON.stringify(allTasks));
+      console.log(imgDone);
+
+      imgDone.onclick = async () => {
+        const resp = await fetch('http://localhost:8000/updateTask', {
+          method: 'PATCH',
+          headers: {
+            'Content-type': 'application/json;charset=utf-8',
+            'Access-Control-Allow-Origin': '*'
+          },
+          body: JSON.stringify({
+            id: allTasks[index].id,
+            text: inputText.value,
+            isCheck: allTasks[index].isCheck,
+          })
+        });
+        let result = await resp.json();
+        console.log(result)
+        allTasks = result.data;
+        // if(inputText){
+        //   item.text = inputText.value;
+        // } else {
+        //   item.text = '';
+        // }
+        // localStorage.setItem('tasks', JSON.stringify(allTasks));
         render();
       }
     }
@@ -112,16 +163,36 @@ render = () => {
   });
 }
 
-onChangeCheckbox = (index) => {
-  allTasks[index].isCheck = !allTasks[index].isCheck;
-  localStorage.setItem('tasks', JSON.stringify(allTasks));
+onChangeCheckbox = async (index) => {
+  const resp = await fetch('http://localhost:8000/updateTask', {
+          method: 'PATCH',
+          headers: {
+            'Content-type': 'application/json;charset=utf-8',
+            'Access-Control-Allow-Origin': '*'
+          },
+          body: JSON.stringify({
+            id: allTasks[index].id,
+            text: allTasks[index].text,
+            isCheck: !allTasks[index].isCheck,
+          })
+        });
+        let result = await resp.json();
+        console.log(result)
+        allTasks = result.data;
+  // allTasks[index].isCheck = !allTasks[index].isCheck;
+  // localStorage.setItem('tasks', JSON.stringify(allTasks));
   render();
 }
 
-onDeleteContainer = (index) => {
-  delete allTasks[index];
-  allTasks = allTasks.filter(function(val){return val});
-  localStorage.setItem('tasks', JSON.stringify(allTasks));
+onDeleteContainer = async (index) => {
+  const resp = await fetch(`http://localhost:8000/deleteTask?id=${allTasks[index].id}`, {
+    method: 'DELETE'
+  });
+  let result = await resp.json();
+  allTasks = result.data;
+  // delete allTasks[index];
+  // allTasks = allTasks.filter(function(val){return val});
+  // localStorage.setItem('tasks', JSON.stringify(allTasks));
   render();
 }
 
