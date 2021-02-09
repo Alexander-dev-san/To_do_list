@@ -125,12 +125,3 @@ onDeleteContainer = (index) => {
   render();
 }
 
-// onEditContainer = (index, item) => {
-//   
-// }
-
-// let inputText = document.createElement('input');
-      // inputText.value = item.text;
-      // imgDelete.remove();
-      // imgEdit.remove();
-      // container.appendChild(inputText);
